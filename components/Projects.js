@@ -39,7 +39,7 @@ function WordFocusHeading() {
   }, []);
 
   return (
-    <h2 className="flex flex-wrap items-center gap-x-4 gap-y-2 text-3xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+    <h2 className="flex flex-wrap items-center gap-x-3 gap-y-2 text-2xl font-bold tracking-tight sm:gap-x-4 sm:text-3xl md:text-5xl lg:text-6xl">
       {WORDS.map((word, i) => (
         <motion.span
           key={word}
@@ -60,7 +60,7 @@ function WordFocusHeading() {
 export default function Projects() {
   return (
     <SectionWrapper id="projects">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -78,12 +78,12 @@ export default function Projects() {
           </motion.div>
 
           {/* Word Focus Heading */}
-          <motion.div variants={fadeUp} className="mb-16">
+          <motion.div variants={fadeUp} className="mb-8 sm:mb-16">
             <WordFocusHeading />
           </motion.div>
 
           {/* Project Grid */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
             {PROJECTS.map((project) => (
               <ProjectCard key={project.title} project={project} />
             ))}

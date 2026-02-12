@@ -29,7 +29,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden px-7"
+      className="relative flex min-h-screen items-center overflow-hidden px-4 sm:px-6 md:px-8"
     >
       {/* Neon Flow Background */}
       <div className="absolute inset-0 z-0" style={{ opacity: 0.4 }}>
@@ -37,16 +37,16 @@ export default function Hero() {
       </div>
 
       <motion.div
-        className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 pt-24 pb-12 lg:grid-cols-2 lg:gap-16"
+        className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 pt-20 pb-8 sm:gap-10 sm:pt-24 sm:pb-12 lg:grid-cols-2 lg:gap-16"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {/* Left Column — Content */}
-        <div className="flex flex-col gap-7">
+        <div className="flex flex-col gap-5 sm:gap-7">
           <motion.div variants={itemVariants}>
             <h1
-              className="text-5xl font-bold leading-tight tracking-tight md:text-7xl"
+              className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-7xl"
               style={{ color: "var(--foreground)" }}
             >
               Abdul
@@ -55,7 +55,7 @@ export default function Hero() {
             </h1>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="text-xl font-medium md:text-2xl">
+          <motion.div variants={itemVariants} className="text-lg font-medium sm:text-xl md:text-2xl">
             <Typewriter words={ROLES} speed={80} delayBetweenWords={2000} cursor={true} cursorChar="|" />
           </motion.div>
 
@@ -122,7 +122,7 @@ export default function Hero() {
           variants={itemVariants}
           className="flex justify-center lg:-ml-8 lg:justify-center"
         >
-          <div className="relative -mt-12 w-[26rem] sm:w-[30rem] md:-mt-16 md:w-[36rem]">
+          <div className="relative -mt-8 w-80 sm:-mt-12 sm:w-104 md:-mt-16 md:w-xl">
             <img
               src="/images/profile.png"
               alt="Abdul Rehman — ARC"

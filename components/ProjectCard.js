@@ -21,7 +21,7 @@ export default function ProjectCard({ project }) {
     >
       {/* Screenshot Preview */}
       <div
-        className="relative h-48 w-full overflow-hidden md:h-56"
+        className="relative h-40 w-full overflow-hidden sm:h-48 md:h-56"
         style={{ backgroundColor: "var(--surface)" }}
       >
         {!imgError ? (
@@ -53,10 +53,10 @@ export default function ProjectCard({ project }) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col p-5 md:p-6">
+      <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6">
         {/* Title */}
         <h3
-          className="mb-2 text-lg font-bold md:text-xl"
+          className="mb-2 text-base font-bold sm:text-lg md:text-xl"
           style={{ color: "var(--foreground)" }}
         >
           {project.title}
@@ -92,13 +92,13 @@ export default function ProjectCard({ project }) {
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-auto flex flex-wrap gap-3">
+        <div className="mt-auto flex flex-wrap gap-2 sm:gap-3">
           {project.demo && (
             <a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-opacity hover:opacity-90"
+              className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-opacity hover:opacity-90 sm:gap-2 sm:px-5 sm:py-2 sm:text-sm"
               style={{
                 backgroundColor: "var(--accent)",
                 color: "var(--background)",
@@ -115,7 +115,7 @@ export default function ProjectCard({ project }) {
               href={project.code}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass glass-hover inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium"
+              className="glass glass-hover inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium sm:gap-2 sm:px-5 sm:py-2 sm:text-sm"
               style={{ color: "var(--foreground)" }}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -129,7 +129,7 @@ export default function ProjectCard({ project }) {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass glass-hover inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium"
+              className="glass glass-hover inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium sm:gap-2 sm:px-5 sm:py-2 sm:text-sm"
               style={{ color: "var(--foreground)" }}
             >
               Details

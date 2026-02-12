@@ -47,10 +47,10 @@ export default function AnimatedHeadline({
   };
 
   return (
-    <div ref={containerRef} className={`mb-14 ${className}`}>
+    <div ref={containerRef} className={`mb-8 sm:mb-14 ${className}`}>
       {/* Label — larger font */}
       <motion.p
-        className="mb-4 text-lg font-semibold tracking-widest uppercase md:text-xl"
+        className="mb-3 text-sm font-semibold tracking-widest uppercase sm:mb-4 sm:text-lg md:text-xl"
         style={{ color: "var(--accent)" }}
         initial={{ opacity: 0, y: 8 }}
         animate={hasAnimated ? { opacity: 1, y: 0 } : {}}
@@ -61,7 +61,7 @@ export default function AnimatedHeadline({
 
       {/* Title — letter-by-letter animation */}
       <motion.h2
-        className="text-3xl font-bold tracking-tight md:text-5xl"
+        className="text-2xl font-bold tracking-tight sm:text-3xl md:text-5xl"
         style={{ color: "var(--foreground)" }}
         aria-label={title}
         variants={containerVariants}

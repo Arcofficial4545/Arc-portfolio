@@ -97,7 +97,7 @@ export default function About() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -111,12 +111,12 @@ export default function About() {
           />
 
           {/* Two-column layout: About text left, Career right */}
-          <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-16">
+          <div className="grid grid-cols-1 gap-10 sm:gap-14 lg:grid-cols-2 lg:gap-16">
             {/* Left — About Me */}
             <motion.div variants={slideIn} className="flex flex-col gap-6">
               <div className="flex flex-col gap-5">
                 <p
-                  className="text-base leading-[1.8] md:text-lg"
+                  className="text-sm leading-[1.8] sm:text-base md:text-lg"
                   style={{ color: "var(--muted)" }}
                 >
                   I&apos;m a passionate Software Engineer and Bachelor of Computer Science student
@@ -125,7 +125,7 @@ export default function About() {
                   and intuitive user interfaces.
                 </p>
                 <p
-                  className="text-base leading-[1.8] md:text-lg"
+                  className="text-sm leading-[1.8] sm:text-base md:text-lg"
                   style={{ color: "var(--muted)" }}
                 >
                   I began my professional journey at DuoLabz, where I developed strong foundations
@@ -134,7 +134,7 @@ export default function About() {
                   engineers, and delivering features used in real-world environments.
                 </p>
                 <p
-                  className="text-base leading-[1.8] md:text-lg"
+                  className="text-sm leading-[1.8] sm:text-base md:text-lg"
                   style={{ color: "var(--muted)" }}
                 >
                   Alongside my full-time role, I build full-stack applications and take on freelance
@@ -161,7 +161,7 @@ export default function About() {
             {/* Right — Career Snapshot */}
             <motion.div variants={fadeUp}>
               <h3
-                className="mb-8 text-xl font-semibold md:text-2xl"
+                className="mb-6 text-lg font-semibold sm:mb-8 sm:text-xl md:text-2xl"
                 style={{ color: "var(--foreground)" }}
               >
                 Career Snapshot

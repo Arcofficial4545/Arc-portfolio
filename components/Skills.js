@@ -57,7 +57,7 @@ export default function Skills() {
         <TubesBackground className="h-full w-full" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -70,7 +70,7 @@ export default function Skills() {
             title="Tools & expertise"
           />
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16">
             {/* Left — Icon Cloud */}
             <motion.div
               variants={fadeUp}
@@ -82,7 +82,7 @@ export default function Skills() {
             </motion.div>
 
             {/* Right — Skill Categories */}
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6 sm:gap-8">
               {Object.entries(SKILLS).map(([category, skills]) => (
                 <motion.div key={category} variants={fadeUp}>
                   <h4
@@ -91,11 +91,11 @@ export default function Skills() {
                   >
                     {category}
                   </h4>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
                     {skills.map((skill) => (
                       <motion.span
                         key={skill}
-                        className="glass glass-hover cursor-default rounded-full px-4 py-2 text-sm font-medium"
+                        className="glass glass-hover cursor-default rounded-full px-3 py-1.5 text-xs font-medium sm:px-4 sm:py-2 sm:text-sm"
                         style={{ color: "var(--foreground)" }}
                         whileHover={{ y: -2, scale: 1.02 }}
                         transition={{

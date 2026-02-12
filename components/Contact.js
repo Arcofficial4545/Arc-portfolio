@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "motion/react";
+import emailjs from "@emailjs/browser";
 import SectionWrapper from "./SectionWrapper";
 import AnimatedHeadline from "./AnimatedHeadline";
 import { SOCIAL_LINKS } from "@/lib/constants";
@@ -79,21 +80,34 @@ function ContactCard({ icon, label, value, onClick, actionIcon, href }) {
 }
 
 export default function Contact() {
+  const formRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   });
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [copiedField, setCopiedField] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const mailtoLink = `mailto:${SOCIAL_LINKS.email}?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.name} (${formData.email})`;
-    window.open(mailtoLink, "_blank");
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: "", email: "", message: "" });
+    setStatus("sending");
+
+    try {
+      await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
+      setStatus("sent");
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 4000);
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 4000);
+    }
   };
 
   const handleCopy = async (text, field) => {
@@ -133,7 +147,7 @@ export default function Contact() {
 
   return (
     <SectionWrapper id="contact">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -146,10 +160,10 @@ export default function Contact() {
             title="Let's connect, create, and solve."
           />
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-5 lg:gap-16">
+          <div className="grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-5 lg:gap-16">
             {/* Contact Form — takes 3 cols */}
             <motion.div variants={fadeUp} className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <div>
                     <label
@@ -161,6 +175,7 @@ export default function Contact() {
                     </label>
                     <input
                       id="name"
+                      name="from_name"
                       type="text"
                       value={formData.name}
                       onChange={(e) =>
@@ -185,6 +200,7 @@ export default function Contact() {
                     </label>
                     <input
                       id="email"
+                      name="reply_to"
                       type="email"
                       value={formData.email}
                       onChange={(e) =>
@@ -211,6 +227,7 @@ export default function Contact() {
                   </label>
                   <textarea
                     id="message"
+                    name="message"
                     value={formData.message}
                     onChange={(e) =>
                       setFormData((prev) => ({ ...prev, message: e.target.value }))
@@ -230,21 +247,52 @@ export default function Contact() {
                   type="submit"
                   className="mt-1 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 sm:w-auto sm:px-10"
                   style={{
-                    backgroundColor: submitted ? "var(--surface-strong)" : "var(--accent)",
-                    color: submitted ? "var(--muted)" : "var(--background)",
+                    backgroundColor:
+                      status === "sent"
+                        ? "#22c55e"
+                        : status === "error"
+                          ? "#ef4444"
+                          : status === "sending"
+                            ? "var(--surface-strong)"
+                            : "var(--accent)",
+                    color:
+                      status === "sending"
+                        ? "var(--muted)"
+                        : status === "sent" || status === "error"
+                          ? "#fff"
+                          : "var(--background)",
                   }}
-                  whileHover={{ scale: 1.02, y: -1 }}
-                  whileTap={{ scale: 0.97 }}
-                  disabled={submitted}
+                  whileHover={status === "idle" ? { scale: 1.02, y: -1 } : {}}
+                  whileTap={status === "idle" ? { scale: 0.97 } : {}}
+                  disabled={status !== "idle"}
                 >
-                  {submitted ? (
+                  {status === "sending" && (
+                    <>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                      </svg>
+                      Sending...
+                    </>
+                  )}
+                  {status === "sent" && (
                     <>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      Message Sent
+                      Message Sent!
                     </>
-                  ) : (
+                  )}
+                  {status === "error" && (
+                    <>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="15" y1="9" x2="9" y2="15" />
+                        <line x1="9" y1="9" x2="15" y2="15" />
+                      </svg>
+                      Failed — Try Again
+                    </>
+                  )}
+                  {status === "idle" && (
                     <>
                       Send Message
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
