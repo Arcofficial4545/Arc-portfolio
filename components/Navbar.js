@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { NAV_LINKS } from "@/lib/constants";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
-import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const { scrolled } = useScrollProgress(50);
@@ -116,20 +115,21 @@ export default function Navbar() {
 
         {/* Right Side — Desktop */}
         <div className="hidden items-center gap-3 md:flex">
-          <ThemeToggle />
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "#contact")}
-            className="glass glass-hover rounded-full px-5 py-2 text-sm font-medium transition-all duration-300"
-            style={{ color: "var(--foreground)" }}
+            className="rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300"
+            style={{
+              backgroundColor: "var(--accent)",
+              color: "var(--background)",
+            }}
           >
-            Hire Me
+            Let&apos;s Talk
           </a>
         </div>
 
         {/* Mobile Menu Toggle */}
         <div className="flex items-center gap-3 md:hidden">
-          <ThemeToggle />
           <motion.button
             className="glass relative z-10 flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-full"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -203,7 +203,7 @@ export default function Navbar() {
                 className="glass glass-hover mt-4 rounded-full px-8 py-3 text-lg font-medium"
                 style={{ color: "var(--foreground)" }}
               >
-                Hire Me
+                Let&apos;s Talk
               </motion.a>
             </nav>
           </motion.div>
